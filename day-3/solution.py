@@ -1,4 +1,3 @@
-import re
 with open('input.txt', 'r') as file:
     def get_valid_sections(text):
         """Get sections of text that come after do() but not after don't()"""
@@ -9,14 +8,12 @@ with open('input.txt', 'r') as file:
 
         while i < len(text):
             # Check for "don't()"
-            # print(text[i:i+7])
             if i + 7 <= len(text) and text[i:i+7] == "don't()":
                 ignore_mode = True
                 i += 7
                 continue
 
             # Check for "do()"
-            # print(text[i:i+4])
             if i + 4 <= len(text) and text[i:i+4] == "do()":
                 ignore_mode = False
                 if current_section:
@@ -72,14 +69,9 @@ with open('input.txt', 'r') as file:
     ans = 0
     matches = []
     valid_sections = get_valid_sections(inp)
-    # valid_sections = get_valid_sections(
-    # "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))")
-    # print(valid_sections)
     for section in valid_sections:
         matches += (find_mul_patterns(section))
-    # string_scanned_matches = find_mul_patterns(inp)
     for match in matches:
-        # print(match)
         op1, op2 = int(match[0]), int(match[1])
         ans += (op1*op2)
     print(ans)
